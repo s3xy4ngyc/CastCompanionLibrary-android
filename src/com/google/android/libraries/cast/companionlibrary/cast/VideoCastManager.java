@@ -2268,8 +2268,13 @@ public class VideoCastManager extends BaseCastManager
             new FetchBitmapTask() {
                 @Override
                 protected void onPostExecute(Bitmap bitmap) {
-                    MediaMetadataCompat currentMetadata = mMediaSessionCompat.getController()
-                            .getMetadata();
+                    MediaMetadataCompat currentMetadata;
+                    try {
+                      currentMetadata = mMediaSessionCompat.getController().getMetadata();
+                    }
+                    catch (Exception e) {
+                      //TODO: Do Something with the Caught Exception
+                    }
                     MediaMetadataCompat.Builder newBuilder = currentMetadata == null
                             ? new MediaMetadataCompat.Builder()
                             : new MediaMetadataCompat.Builder(currentMetadata);
